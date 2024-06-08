@@ -1,0 +1,15 @@
+{
+  "name": "vvberaldo/framework",
+  "authors": [
+    {
+      "name": "Vinícius Valle Beraldo",
+      "email": "vvberaldo@proton.me"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "app\\": "."
+    }
+  },
+  "require": {}
+}
