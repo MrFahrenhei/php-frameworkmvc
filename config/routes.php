@@ -1,12 +1,16 @@
 <?php
 
+use App\Controllers\SiteController;
+
 return [
     'get'=>[
-        "/" => 'home',
-        "/contact" => 'contact'
+        "/" => [SiteController::class, "home"],
+        "/contact" => [SiteController::class, "contact"],
+        "/func" => function(){ return 'hello'; }
     ],
     'post'=>[
-    "/" => 'home',
-    "/users" => 'contact'
-]
+        "/" => 'home',
+        "/users" => 'contact',
+        "/contact" => [SiteController::class, "handleContact"]
+    ]
 ];
