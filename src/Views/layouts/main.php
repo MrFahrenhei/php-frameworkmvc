@@ -13,10 +13,11 @@
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-4">Simple header</span>
         </a>
-
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="/" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/' ? 'active' : '' ?>"" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="/contact" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/contact' ? 'active' : '' ?>"">Contact</a></li>
+            <li class="nav-item"><a href="/register" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/register' ? 'active' : '' ?>"">Register</a></li>
+            <li class="nav-item"><a href="/login" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/login' ? 'active' : '' ?>"">login</a></li>
         </ul>
     </header>
     <div class="container">
