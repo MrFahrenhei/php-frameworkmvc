@@ -28,7 +28,7 @@ class Router
     public function resolve(): mixed
     {
         $path = $this->request->getPath();
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
         $callback = $this->routes[$method][$path] ?? false;
         if (!$callback) {
             $this->response->setStatusCode(404);
@@ -38,10 +38,11 @@ class Router
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-            $controller = new $callback[0]();
-            return call_user_func([$controller, $callback[1]]);
+//            $controller = new $callback[0]();
+//            return call_user_func([$controller, $callback[1]]);
+            $callback[0] = new $callback[0]();
         }
-        return call_user_func($callback);
+        return call_user_func($callback, $this->request);
     }
     public function renderView($view, $params = []): array|false|string
     {
