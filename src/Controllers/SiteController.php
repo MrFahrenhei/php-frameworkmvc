@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Core\Application;
+use App\Core\Controller;
+use App\Core\Request;
 
 /**
  * Class SiteController
@@ -9,17 +11,22 @@ use App\Core\Application;
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @package App\Controllers
  */
-class SiteController
+class SiteController extends Controller
 {
     public function home(): string
     {
         $params = [
             'name' => "beraldo"
         ];
-        return Application::$app->router->renderView('home', $params);
+        return $this->render('home', $params);
     }
-    public function handleContact(): string
+
+    public function handleContact(Request $request)
     {
-       return 'Handling submitted data';
+        $body = $request->getBody();
+    }
+    public function contact(): string
+    {
+        return $this->render('contact');
     }
 }
