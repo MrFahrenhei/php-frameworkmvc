@@ -7,8 +7,8 @@ namespace App\Core;
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @package App\Core
- * @param App\core\Request $request
- * @param App\core\Response $response
+ * @param Request $request
+ * @param Response $response
  */
 class Router
 {
@@ -40,7 +40,9 @@ class Router
         if (is_array($callback)) {
 //            $controller = new $callback[0]();
 //            return call_user_func([$controller, $callback[1]]);
-            $callback[0] = new $callback[0]();
+            //$callback[0] = new $callback[0]();
+            Application::$app->controller = new $callback[0]();
+            $callback[0] = Application::$app->controller;
         }
         return call_user_func($callback, $this->request);
     }
@@ -57,8 +59,9 @@ class Router
     }
     protected function layoutContent(): false|string
     {
+        $layout = Application::$app->controller->layout;
         ob_start();
-        include_once Application::$ROOT_DIR . "/src/Views/layouts/main.php";
+        include_once Application::$ROOT_DIR . "/src/Views/layouts/{$layout}.php";
         return ob_get_clean();
     }
     protected function renderOnlyView(string $view, array $params): false|string
