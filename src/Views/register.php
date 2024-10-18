@@ -5,7 +5,7 @@
             <div class="row g-3">
                 <div class="col-sm-3">
                     <label for="subject" class="form-label">Firstname</label>
-                    <input type="text" class="form-control" name="fistname" id="firstname" placeholder="" value="" >
+                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="" value="" >
                 </div>
                 <div class="col-sm-3">
                     <label for="subject" class="form-label">Lastname</label>
@@ -21,13 +21,9 @@
                 </div>
                 <div class="col-6">
                     <label for="password" class="form-label">Password Repeat</label>
-                    <input type="password" class="form-control" name="cofirmPassword" id="confirmPassword">
+                    <input type="password" class="form-control" name="passwordConfirm" id="confirmPassword">
                 </div>
                 <hr class="my-4">
-                <div class="col-12">
-                    <label for="body" class="form-label">Body</label>
-                    <textarea class="form-control" id="body" name="body" ></textarea>
-                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
