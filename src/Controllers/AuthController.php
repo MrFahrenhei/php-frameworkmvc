@@ -4,22 +4,42 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\Request;
+use App\Models\RegisterModel;
 
+/**
+ * Class AuthController
+ *
+ * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
+ * @package App\Controllers
+ */
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if($request->isPost()) {
-            return 'Handle submited data login post';
-        }
-       return $this->render('login');
+        $this->setLayout('auth');
+        return $this->render('login');
     }
 
     public function register(Request $request)
     {
         if($request->isPost()) {
-            return 'Handle submited data register post';
+            $registerModel = new RegisterModel();
+            $registerModel->loadData($request->getBody());
+
+            if($registerModel->validate() && $registerModel->register()){
+                return 'Success';
+            }
+            echo '<pre>';
+            var_dump($registerModel->errors);
+            echo '</pre>';
+            exit();
+            return $this->render('register', [
+                'model' => $registerModel,
+            ]);
         }
-       return $this->render('register');
+        $this->setLayout('auth');
+        return $this->render('register', [
+            'model'=>$registerModel,
+        ]);
     }
 }
