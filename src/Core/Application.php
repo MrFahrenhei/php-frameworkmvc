@@ -7,6 +7,7 @@ namespace App\Core;
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @package App\Core
+ * @param string $rootPath
  */
 
 class Application
@@ -16,7 +17,10 @@ class Application
     public readonly Request $request;
     public readonly Response $response;
     public static Application $app;
-    public function __construct(public readonly string $rootPath)
+    public Controller $controller;
+    public function __construct(
+        public readonly string $rootPath,
+    )
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
