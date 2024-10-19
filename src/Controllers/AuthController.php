@@ -20,7 +20,7 @@ class AuthController extends Controller
         return $this->render('login');
     }
 
-    public function register(Request $request)
+    public function register(Request $request): false|array|string
     {
 
         $registerModel = new RegisterModel();
@@ -29,7 +29,6 @@ class AuthController extends Controller
             if($registerModel->validate() && $registerModel->register()){
                 return 'Success';
             }
-
             return $this->render('register', [
                 'model' => $registerModel,
             ]);
