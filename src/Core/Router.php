@@ -38,9 +38,6 @@ class Router
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-//            $controller = new $callback[0]();
-//            return call_user_func([$controller, $callback[1]]);
-            //$callback[0] = new $callback[0]();
             Application::$app->controller = new $callback[0]();
             $callback[0] = Application::$app->controller;
         }
