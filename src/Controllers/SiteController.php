@@ -16,7 +16,9 @@ class SiteController extends Controller
     public function home(): string
     {
         $params = [
-            'name' => "beraldo"
+            'name' => "beraldo",
+            'pipoca' => "eu gosto",
+            'ola' => 'não deixa'
         ];
         return $this->render('home', $params);
     }
