@@ -2,6 +2,9 @@
 
 use App\Core\Form\Form;
 
+/**
+ * @var \App\Models\RegisterModel|null $model
+ */
 ?>
 <div class="container">
     <h1>Create an account</h1>
