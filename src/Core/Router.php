@@ -49,7 +49,7 @@ class Router
         $viewContent = $this->renderOnlyView($view, $params);
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
-    protected function renderContent(string $viewContent)
+    protected function renderContent(string $viewContent): array|false|string
     {
         $layoutContent = $this->layoutContent();
         return str_replace('{{content}}', $viewContent, $layoutContent);
