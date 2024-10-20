@@ -7,6 +7,7 @@ namespace App\Core;
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @param string $rootPath
+ * @param array $config
  *@package App\Core
  */
 
