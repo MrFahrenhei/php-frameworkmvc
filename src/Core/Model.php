@@ -9,13 +9,13 @@ namespace App\Core;
  */
 abstract class Model
 {
-    public const RULE_REQUIRED = 'required';
-    public const RULE_EMAIL = 'email';
-    public const RULE_MIN = 'min';
-    public const RULE_MAX = 'max';
-    public const RULE_MATCH = 'match';
+    public const string RULE_REQUIRED = 'required';
+    public const string RULE_EMAIL = 'email';
+    public const string RULE_MIN = 'min';
+    public const string RULE_MAX = 'max';
+    public const string RULE_MATCH = 'match';
 
-    public function loadData(array $data)
+    public function loadData(array $data): void
     {
         foreach ($data as $key => $value) {
            if (property_exists($this, $key)) {
@@ -28,7 +28,7 @@ abstract class Model
 
     public array $errors = [];
 
-    public function validate()
+    public function validate(): bool
     {
        foreach ($this->rules() as $attribute => $rules) {
            $value = $this->{$attribute};
@@ -57,7 +57,7 @@ abstract class Model
        return empty($this->errors);
     }
 
-    public function addError(string $attribute, string $rule, array $params = [])
+    public function addError(string $attribute, string $rule, array $params = []): void
     {
         $message = $this->errorMessages()[$rule] ?? '';
         foreach($params as $key => $value) {
@@ -66,7 +66,7 @@ abstract class Model
         $this->errors[$attribute][] = $message;
     }
 
-    public function errorMessages()
+    public function errorMessages(): array
     {
        return [
            self::RULE_REQUIRED => 'The field is required.',
