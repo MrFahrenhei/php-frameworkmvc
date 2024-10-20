@@ -10,11 +10,11 @@ namespace App\Core;
 class Controller
 {
     public string $layout = 'main';
-    public function setLayout(string $layout)
+    public function setLayout(string $layout): void
     {
        $this->layout = $layout;
     }
-    public function render($view, $params = [])
+    public function render($view, $params = []): false|array|string
     {
         return Application::$app->router->renderView($view, $params);
     }
