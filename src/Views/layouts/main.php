@@ -1,3 +1,6 @@
+<?php
+use App\Core\Application;
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,6 +24,11 @@
         </ul>
     </header>
     <div class="container">
+        <?php if(Application::$app->session->getFlash('success')): ?>
+            <div class="alert alert-success">
+                <?= Application::$app->session->getFlash('success'); ?>
+            </div>
+        <?php endif; ?>
         {{content}}
     </div>
 </main>
