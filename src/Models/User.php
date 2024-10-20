@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Core\DBModel;
 use App\Core\Model;
 
 /**
@@ -11,7 +12,7 @@ use App\Core\Model;
  * @package App\Models
  */
 
-class RegisterModel extends Model
+class User extends DBModel
 {
     public string $firstname = '';
     public string $lastname = '';
