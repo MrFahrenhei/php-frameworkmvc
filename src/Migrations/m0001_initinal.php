@@ -1,9 +1,11 @@
 <?php
 
+use App\Core\Application;
+
 class m0001_initinal{
     public function up()
     {
-        $db = \App\Core\Application::$app->db;
+        $db = Application::$app->db;
         $sql = '
                 CREATE TABLE IF NOT EXISTS 
                 `users` 
@@ -22,7 +24,7 @@ class m0001_initinal{
 
     public function down()
     {
-        $db = \App\Core\Application::$app->db;
+        $db = Application::$app->db;
         $sql = 'DROP TABLE `users`';
         $db->pdo->exec($sql);
     }
