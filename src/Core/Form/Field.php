@@ -30,7 +30,7 @@ class Field
                         <input type="%s"  name="%s" placeholder="" value="%s" class="form-control%s">
                        <div class="invalid-feedback">%s</div> 
                     </div>',
-            $this->attribute,
+            $this->model->getLabel($this->attribute),
             $this->type,
             $this->attribute,
             $this->model->{$this->attribute},
