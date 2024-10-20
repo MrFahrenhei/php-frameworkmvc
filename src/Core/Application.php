@@ -6,8 +6,8 @@ namespace App\Core;
  * Class Application
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
- * @package App\Core
  * @param string $rootPath
+ *@package App\Core
  */
 
 class Application
@@ -16,10 +16,12 @@ class Application
     public readonly Router $router;
     public readonly Request $request;
     public readonly Response $response;
+    public readonly Database $db;
     public static Application $app;
     public Controller $controller;
     public function __construct(
         public readonly string $rootPath,
+        public readonly array $config,
     )
     {
         self::$ROOT_DIR = $rootPath;
@@ -27,6 +29,8 @@ class Application
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
+
+        $this->db = new Database($config['db']);
     }
 
     public function run()
