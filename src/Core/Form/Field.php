@@ -11,10 +11,10 @@ use App\Core\Model;
  */
 class Field
 {
-    public const TYPE_TEXT = 'text';
-    public const TYPE_PASSWORD = 'password';
-    public const TYPE_NUMBER = 'number';
-    public const TYPE_EMAIL = 'email';
+    public const string TYPE_TEXT = 'text';
+    public const string TYPE_PASSWORD = 'password';
+    public const string TYPE_NUMBER = 'number';
+    public const string TYPE_EMAIL = 'email';
     public function __construct(
         public readonly Model $model,
         public readonly string $attribute,
