@@ -3,7 +3,7 @@
 use App\Core\Form\Form;
 
 /**
- * @var \App\Models\RegisterModel|null $model
+ * @var \App\Models\User|null $model
  */
 ?>
 <div class="container">
