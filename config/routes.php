@@ -6,10 +6,12 @@ use App\Controllers\SiteController;
 return [
     'get'=>[
         "/" => [SiteController::class, "home"],
-        "/contact" => [SiteController::class, "contact"],
         "/func" => function(){ return 'hello'; },
-        "/login" => [AuthController::class, "login"],
+        "/contact" => [SiteController::class, "contact"],
         "/register" => [AuthController::class, "register"],
+        "/login" => [AuthController::class, "login"],
+        "/logout"=> [AuthController::class, "logout"],
+        "/profile"=> [AuthController::class, "profile"],
     ],
     'post'=>[
         "/" => 'home',

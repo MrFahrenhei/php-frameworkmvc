@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Core\DBModel;
 use App\Core\Model;
+use App\Core\UserModel;
 
 /**
  * Class RegisterModel
@@ -12,7 +13,7 @@ use App\Core\Model;
  * @package App\Models
  */
 
-class User extends DBModel
+class User extends UserModel
 {
     private const STATUS_INACTIVE = 0;
     private const STATUS_ACTIVE = 1;
@@ -27,6 +28,11 @@ class User extends DBModel
     public function tableName(): string
     {
        return 'users';
+    }
+
+    public function primaryKey(): string
+    {
+       return 'id';
     }
     public function save(): string
     {
@@ -62,5 +68,10 @@ class User extends DBModel
             'password' => "Password",
             'confirmPassword' => "Confirm Password",
             ];
+    }
+
+    public function getDisplayName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

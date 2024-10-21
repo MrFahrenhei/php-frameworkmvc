@@ -3,10 +3,12 @@ require_once dirname(__DIR__,1) . '/vendor/autoload.php';
 $routes = require_once dirname(__DIR__,1) . '/config/routes.php';
 
 use App\Core\Application;
+use App\Models\User;
 
 (Dotenv\Dotenv::createImmutable(dirname(__DIR__,1)))->load();
 
 $config = [
+    'userClass' => User::class,
     'db' => [
         'dsn' => $_ENV['DB_DSN'],
         'user' => $_ENV['DB_USER'],
