@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\DB;
+use App\Core\Application;
 use PDO;
 use PDOStatement;
 
@@ -8,7 +9,7 @@ use PDOStatement;
  * Class Database
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
- * @package App\Core
+ * @package App\Core\DB
  */
 
 class Database
@@ -44,7 +45,7 @@ class Database
            require_once(Application::$ROOT_DIR . '/src/Migrations/' . $migration);
            $className = pathinfo($migration, PATHINFO_FILENAME);
            $instance = new $className();
-           $this->log("Applyling migration $migration");
+           $this->log("Applying migration $migration");
            $instance->up();
            $this->log("Applied migration $migration");
            $newMigrations[] = $migration;
@@ -91,19 +92,19 @@ class Database
     }
 
     /**
-     * @param $message
+     * @param string $message
      * @return void
      */
-    protected function log($message): void
+    protected function log(string $message): void
     {
         echo '['.date('Y-m-d H:i:s').'] '.$message.PHP_EOL;
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      * @return false|PDOStatement
      */
-    public function prepare($sql): false|PDOStatement
+    public function prepare(string $sql): false|PDOStatement
     {
         return $this->pdo->prepare($sql);
     }
