@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Core;
-use PDO;
 
 /**
  * Class Model
@@ -17,7 +16,12 @@ abstract class Model
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_UNIQUE = 'unique';
+    public array $errors = [];
 
+    /**
+     * @param array $data
+     * @return void
+     */
     public function loadData(array $data): void    {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
@@ -27,17 +31,27 @@ abstract class Model
     }
 
     abstract public function rules(): array;
+
+    /**
+     * @return array
+     */
     public function labels(): array
     {
         return [];
     }
 
+    /**
+     * @param string $attribute
+     * @return string
+     */
     public function getLabel(string $attribute): string
     {
         return $this->labels()[$attribute]??$attribute;
     }
-    public array $errors = [];
 
+    /**
+     * @return bool
+     */
     public function validate(): bool
     {
         foreach ($this->rules() as $attribute => $rules) {
@@ -80,6 +94,12 @@ abstract class Model
         return empty($this->errors);
     }
 
+    /**
+     * @param string $attribute
+     * @param string $rule
+     * @param array $params
+     * @return void
+     */
     private function addErrorForRule(string $attribute, string $rule, array $params = []): void
     {
         $message = $this->errorMessages()[$rule] ?? '';
@@ -88,11 +108,20 @@ abstract class Model
         }
         $this->errors[$attribute][] = $message;
     }
+
+    /**
+     * @param string $attribute
+     * @param string $message
+     * @return void
+     */
     public function addError(string $attribute, string $message): void
     {
         $this->errors[$attribute][] = $message;
     }
 
+    /**
+     * @return string[]
+     */
     public function errorMessages(): array
     {
         return [
@@ -105,12 +134,20 @@ abstract class Model
         ];
     }
 
-    public function hasError(string $attribute)
+    /**
+     * @param string $attribute
+     * @return mixed
+     */
+    public function hasError(string $attribute): mixed
     {
         return $this->errors[$attribute] ?? false;
     }
 
-    public function getFirstError(string $attribute)
+    /**
+     * @param string $attribute
+     * @return mixed
+     */
+    public function getFirstError(string $attribute): mixed
     {
         return $this->errors[$attribute][0] ?? false;
     }
