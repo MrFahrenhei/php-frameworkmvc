@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Application;
 use App\Core\Controller;
+use App\Core\Middlewares\AuthMiddleware;
 use App\Core\Request;
 use App\Core\Response;
 use App\Models\LoginForm;
@@ -27,8 +28,8 @@ class AuthController extends Controller
         if($request->isPost()){
             $loginForm->loadData($request->getBody());
             if($loginForm->validate() && $loginForm->login()){
-               $response->redirect('/');
-               return;
+                $response->redirect('/');
+                return;
             }
         }
         $this->setLayout('auth');
@@ -44,19 +45,15 @@ class AuthController extends Controller
                 Application::$app->session->setFlash('success', 'Thanks for registering');
                 Application::$app->response->redirect('/');
             }
-            return $this->render('register', [
-                'model' => $user,
-            ]);
+            return $this->render('register', ['model' => $user]);
         }
         $this->setLayout('auth');
-        return $this->render('register', [
-            'model'=>$user,
-        ]);
+        return $this->render('register', ['model'=>$user]);
     }
     public function logout(Request $request, Response $response)
     {
-       Application::$app->logout();
-       $response->redirect('/');
+        Application::$app->logout();
+        $response->redirect('/');
     }
     public function profile()
     {
