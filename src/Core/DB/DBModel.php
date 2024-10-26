@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Core;
+namespace App\Core\DB;
+use App\Core\Application;
+use App\Core\Model;
 use PDOStatement;
 
 /**
  * Class DBModel
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
- * @package App\Core
+ * @package App\Core\DB
  */
 abstract class DBModel extends Model
 {
@@ -52,10 +54,10 @@ abstract class DBModel extends Model
     }
 
     /**
-     * @param $sql
+     * @param string $sql
      * @return false|PDOStatement
      */
-    public function prepare($sql): false|PDOStatement
+    public function prepare(string $sql): false|PDOStatement
     {
         return Application::$app->db->pdo->prepare($sql);
     }
