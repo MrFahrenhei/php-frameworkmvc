@@ -16,7 +16,7 @@ class Controller
     /**
      * @var BaseMiddleware[]
      */
-    public array $middleware = [];
+    protected array $middleware = [];
     public function setLayout(string $layout): void
     {
        $this->layout = $layout;
@@ -28,5 +28,9 @@ class Controller
     public function registerMiddleware(BaseMiddleware $middleware): void
     {
         $this->middleware[] = $middleware;
+    }
+    public function getMiddleware(): array
+    {
+        return $this->middleware;
     }
 }
