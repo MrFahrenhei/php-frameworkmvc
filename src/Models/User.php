@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Core\DBModel;
-use App\Core\Model;
 use App\Core\UserModel;
 
 /**
@@ -34,7 +32,7 @@ class User extends UserModel
     {
        return 'id';
     }
-    public function save(): string
+    public function save(): bool
     {
         $this->status = self::STATUS_INACTIVE;
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
