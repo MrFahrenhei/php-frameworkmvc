@@ -11,8 +11,7 @@ use App\Models\ContactForm;
 
 $this->title = 'Contact';
 ?>
-<h1>Contact Us</h1>
-<div class="container">
+<h2>Contact Us</h2>
     <?php $form = Form::begin('', 'POST'); ?>
     <?= $form->field($model, 'subject'); ?>
     <?= $form->field($model, 'email'); ?>
@@ -20,4 +19,3 @@ $this->title = 'Contact';
     <hr class="my-4">
     <button type="submit" class="btn btn-primary">Submit</button>
     <?= Form::end(); ?>
-</div>
