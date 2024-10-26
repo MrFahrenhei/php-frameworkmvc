@@ -1,19 +1,23 @@
 <?php
 
 namespace App\Core;
+use PDO;
+use PDOStatement;
+
 /**
  * Class Database
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @package App\Core
- * @param array $config
  */
-
-use PDO;
 
 class Database
 {
     public PDO $pdo;
+
+    /**
+     * @param array $config
+     */
     public function __construct(public array $config)
     {
         $dsn = $config['dsn'] ?? '';
@@ -23,6 +27,9 @@ class Database
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     * @return void
+     */
     public function applyMigrations(): void
     {
        $this->createMigrationsTable();
@@ -49,6 +56,9 @@ class Database
        }
     }
 
+    /**
+     * @return void
+     */
     public function createMigrationsTable(): void
     {
       $this->pdo->exec("
@@ -59,6 +69,9 @@ class Database
       ");
     }
 
+    /**
+     * @return false|array
+     */
     public function getAppliedMigrations(): false|array
     {
        $stmt = $this->pdo->prepare("SELECT migration FROM migrations;");
@@ -66,6 +79,10 @@ class Database
        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * @param array $migrations
+     * @return bool
+     */
     public function saveMigrations(array $migrations): bool
     {
        $str = implode(",", array_map(fn($m)=>"('$m')", $migrations));
@@ -73,12 +90,20 @@ class Database
        return $stmt->execute();
     }
 
+    /**
+     * @param $message
+     * @return void
+     */
     protected function log($message): void
     {
         echo '['.date('Y-m-d H:i:s').'] '.$message.PHP_EOL;
     }
 
-    public function prepare($sql)
+    /**
+     * @param $sql
+     * @return false|PDOStatement
+     */
+    public function prepare($sql): false|PDOStatement
     {
         return $this->pdo->prepare($sql);
     }

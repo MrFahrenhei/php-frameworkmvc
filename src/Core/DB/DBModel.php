@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Core;
+use PDOStatement;
+
 /**
  * Class DBModel
  *
@@ -12,7 +14,11 @@ abstract class DBModel extends Model
     abstract public function tableName(): string;
     abstract public function attributes(): array;
     abstract public function primaryKey(): string;
-    public function save()
+
+    /**
+     * @return bool
+     */
+    public function save(): bool
     {
        $tableName = $this->tableName();
        $attributes = $this->attributes();
@@ -28,7 +34,11 @@ abstract class DBModel extends Model
        return $stmt->execute();
     }
 
-    public function findOne($where)
+    /**
+     * @param $where
+     * @return mixed
+     */
+    public function findOne($where): mixed
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
@@ -40,7 +50,12 @@ abstract class DBModel extends Model
         $stmt->execute();
         return $stmt->fetchObject(static::class);
     }
-    public function prepare($sql): false|\PDOStatement
+
+    /**
+     * @param $sql
+     * @return false|PDOStatement
+     */
+    public function prepare($sql): false|PDOStatement
     {
         return Application::$app->db->pdo->prepare($sql);
     }

@@ -16,7 +16,7 @@ return [
     'post'=>[
         "/" => 'home',
         "/users" => 'contact',
-        "/contact" => [SiteController::class, "handleContact"],
+        "/contact" => [SiteController::class, "contact"],
         "/login" => [AuthController::class, "login"],
         "/register" => [AuthController::class, "register"],
     ],
