@@ -12,19 +12,32 @@ use App\Core\Model;
  */
 class Form
 {
+    /**
+     * @param string $action
+     * @param string $method
+     * @return Form
+     */
     public static function begin(string $action, string $method): Form
     {
        echo sprintf('<form class="needs-validation" action="%s" method="%s">', $action, $method);
        return new Form();
     }
 
+    /**
+     * @return string
+     */
     public static function end(): string
     {
        return '</form>';
     }
 
-    public function field(Model $model, $attribute): Field
+    /**
+     * @param Model $model
+     * @param $attribute
+     * @return InputField
+     */
+    public function field(Model $model, $attribute): InputField
     {
-       return new Field($model, $attribute);
+       return new InputField($model, $attribute);
     }
 }
