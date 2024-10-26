@@ -9,17 +9,24 @@ use App\Core\Exception\ForbiddenException;
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @package App\Core\Middlewares
- * @param array $actions
  */
 class AuthMiddleware extends BaseMiddleware
 {
     public array $actions = [];
+
+    /**
+     * @param array $actions
+     */
     public function __construct(array $actions = [])
     {
         $this->actions = $actions;
     }
 
-    public function execute()
+    /**
+     * @return void
+     * @throws ForbiddenException
+     */
+    public function execute(): void
     {
         if(Application::isGuest()){
             if(empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)){
