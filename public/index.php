@@ -16,18 +16,34 @@ $config = [
     ]
 ];
 $app = new Application(dirname(__DIR__, 1), $config);
-foreach ($routes as $method => $route){
-    if($method == 'get'){
-        foreach($route as $key=>$value){
-            $app->router->get($key, $value);
-        }
-    }else if($method == 'post'){
-        foreach($route as $key=>$value){
-            $app->router->post($key, $value);
+
+function registerRoutes($app, $routes) {
+    foreach ($routes as $method => $routeList) {
+        foreach ($routeList as $path => $handler) {
+            $app->router->$method($path, $handler);
         }
     }
 }
-//$app->router->get('/', 'home');
-//$app->router->get('/contact', [SiteController::class, 'contact']);
-//$app->router->post('/contact', [SiteController::class, 'handleContact']);
+registerRoutes($app, $routes);
+
+
+//  segunda maneira de fazer um sistema de rota
+//foreach ($routes as $method => $route){
+//    if($method == 'get'){
+//        foreach($route as $key=>$value){
+//            $app->router->get($key, $value);
+//        }
+//    }else if($method == 'post'){
+//        foreach($route as $key=>$value){
+//            $app->router->post($key, $value);
+//        }
+//    }
+//}
+
+// primeira maneira de fazer um sistema de rota
+// $app->router->get('/', 'home');
+// $app->router->get('/contact', [SiteController::class, 'contact']);
+// $app->router->post('/contact', [SiteController::class, 'handleContact']);
+
+
 echo $app->run();
