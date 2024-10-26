@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Core;
+use App\Core\DB\DBModel;
+
 /**
  * Class UserModel
  *
