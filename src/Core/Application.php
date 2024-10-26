@@ -57,7 +57,12 @@ class Application
 
     public function run()
     {
-        return $this->router->resolve();
+        try {
+            return $this->router->resolve();
+        }catch (\Exception $e){
+            $this->response->setStatusCode($e->getCode());
+            echo $this->router->renderView('_error', ['exception' => $e]);
+        }
     }
 
     public function login(DbModel $user)
