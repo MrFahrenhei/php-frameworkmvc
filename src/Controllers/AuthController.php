@@ -22,22 +22,31 @@ class AuthController extends Controller
     {
         $this->registerMiddleware(new AuthMiddleware(['profile']));
     }
-    public function login(Request $request, Response $response)
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return false|array|string
+     */
+    public function login(Request $request, Response $response): false|array|string
     {
         $loginForm = new LoginForm();
         if($request->isPost()){
             $loginForm->loadData($request->getBody());
             if($loginForm->validate() && $loginForm->login()){
                 $response->redirect('/');
-                return;
             }
         }
         $this->setLayout('auth');
         return $this->render('login', ['model'=>$loginForm]);
     }
+
+    /**
+     * @param Request $request
+     * @return false|array|string
+     */
     public function register(Request $request): false|array|string
     {
-
         $user = new User();
         if($request->isPost()) {
             $user->loadData($request->getBody());
@@ -50,12 +59,22 @@ class AuthController extends Controller
         $this->setLayout('auth');
         return $this->render('register', ['model'=>$user]);
     }
-    public function logout(Request $request, Response $response)
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return void
+     */
+    public function logout(Request $request, Response $response): void
     {
         Application::$app->logout();
         $response->redirect('/');
     }
-    public function profile()
+
+    /**
+     * @return false|array|string
+     */
+    public function profile(): false|array|string
     {
         return $this->render('profile');
     }
