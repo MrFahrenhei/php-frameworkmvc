@@ -9,7 +9,7 @@ use App\Core\Model;
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @package App\Core\Form
  */
-class Field extends BaseField
+class InputField extends BaseField
 {
     public const TYPE_TEXT = 'text';
     public const TYPE_PASSWORD = 'password';
