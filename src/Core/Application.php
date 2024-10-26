@@ -2,14 +2,15 @@
 
 namespace App\Core;
 
-use App\Models\User;
+
+use App\Core\DB\Database;
+use App\Core\DB\DBModel;
+use Exception;
 
 /**
  * Class Application
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
- * @param string $rootPath
- * @param array $config
  *@package App\Core
  */
 
@@ -23,9 +24,15 @@ class Application
     public readonly Response $response;
     public readonly Database $db;
     public ?DbModel $user;
+    public View $view;
     public Session $session;
     public static Application $app;
     public ?Controller $controller = null;
+
+    /**
+     * @param string $rootPath
+     * @param array $config
+     */
     public function __construct(
         public readonly string $rootPath,
         public readonly array $config,
@@ -38,7 +45,7 @@ class Application
         $this->response = new Response();
         $this->session = new Session();
         $this->router = new Router($this->request, $this->response);
-
+        $this->view = new View();
         $this->db = new Database($config['db']);
 
         $primaryValue = $this->session->get('user');
@@ -50,22 +57,32 @@ class Application
         }
     }
 
+    /**
+     * @return bool
+     */
     public static function isGuest(): bool
     {
         return !self::$app->user;
     }
 
-    public function run()
+    /**
+     * @return mixed
+     */
+    public function run(): mixed
     {
         try {
             return $this->router->resolve();
-        }catch (\Exception $e){
+        }catch (Exception $e){
             $this->response->setStatusCode($e->getCode());
-            echo $this->router->renderView('_error', ['exception' => $e]);
+            return $this->view->renderView('_error', ['exception' => $e]);
         }
     }
 
-    public function login(DbModel $user)
+    /**
+     * @param DbModel $user
+     * @return true
+     */
+    public function login(DbModel $user): true
     {
         $this->user = $user;
         $primaryKey = $user->primaryKey();
@@ -74,7 +91,10 @@ class Application
         return true;
     }
 
-    public function logout()
+    /**
+     * @return void
+     */
+    public function logout(): void
     {
         $this->user = null;
         $this->session->remove('user');
