@@ -1,7 +1,11 @@
 <?php
 
 use App\Core\Application;
+use App\Core\View;
 
+/**
+ * @var $this View;
+ */
 $this->title = 'Profile';
 ?>
 
