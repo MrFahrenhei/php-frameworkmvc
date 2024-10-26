@@ -2,13 +2,13 @@
 
 namespace App\Core;
 
-/**
+use App\Core\Exception\NotFoundException;/**
  * Class Router
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
- * @package App\Core
  * @param Request $request
  * @param Response $response
+ *@package App\Core
  */
 class Router
 {
@@ -31,16 +31,22 @@ class Router
         $method = $this->request->method();
         $callback = $this->routes[$method][$path] ?? false;
         if (!$callback) {
-            $this->response->setStatusCode(404);
-            return $this->renderView('_404');
+            //$this->response->setStatusCode(404);
+            //return $this->renderView('_404');
+            throw new NotFoundException();
         }
         if (is_string($callback)) {
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-            Application::$app->controller = new $callback[0]();
-            Application::$app->controller->action = $callback[1];
-            $callback[0] = Application::$app->controller;
+            /** @var Controller $controller */
+            $controller = new $callback[0]();
+            Application::$app->controller = $controller;
+            $controller->action = $callback[1];
+            $callback[0] = $controller;
+            foreach($controller->getMiddleware() as $middleware) {
+                $middleware->execute();
+            }
         }
         return call_user_func($callback, $this->request, $this->response);
     }
