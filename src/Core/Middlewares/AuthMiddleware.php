@@ -2,12 +2,14 @@
 
 namespace App\Core\Middlewares;
 use App\Core\Application;
+use App\Core\Exception\ForbiddenException;
 
 /**
  * Class AuthMiddleware
  *
  * @autor Vinícius Valle Beraldo <vvberaldo@proton.me>
  * @package App\Core\Middlewares
+ * @param array $actions
  */
 class AuthMiddleware extends BaseMiddleware
 {
@@ -21,7 +23,7 @@ class AuthMiddleware extends BaseMiddleware
     {
         if(Application::isGuest()){
             if(empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)){
-                throw
+                throw new ForbiddenException();
             }
         }
     }
